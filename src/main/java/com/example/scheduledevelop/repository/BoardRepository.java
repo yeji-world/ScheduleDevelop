@@ -10,4 +10,5 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     default Board findByIdOrElseThrow(Long id) {
         return findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "존재하지 않는 id입니다 : " + id));
     }
+
 }

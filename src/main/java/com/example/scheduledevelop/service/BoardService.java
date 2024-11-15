@@ -7,8 +7,10 @@ import com.example.scheduledevelop.entity.User;
 import com.example.scheduledevelop.repository.BoardRepository;
 import com.example.scheduledevelop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -25,6 +27,11 @@ public class BoardService {
         User findUser = userRepository.findByEmailOrElseTrow(requestDto.getEmail());
 
         Board board = new Board(requestDto.getTitle(), requestDto.getContent());
+
+        if(requestDto.getTitle().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "제목은 필수입니다");
+        }
+
         board.setUser(findUser);
 
         Board savedBoard = boardRepository.save(board);
