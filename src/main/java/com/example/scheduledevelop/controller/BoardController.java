@@ -21,7 +21,7 @@ public class BoardController {
     @PostMapping
     public ResponseEntity<BoardResponseDto> sava(@RequestBody CreateBoardRequestDto requestDto) {
 
-        BoardResponseDto boardResponseDto = boardService.save(requestDto.getTitle(), requestDto.getContent(), requestDto.getUsername());
+        BoardResponseDto boardResponseDto = boardService.save(requestDto);
 
         return new ResponseEntity<>(boardResponseDto, HttpStatus.CREATED);
     }
@@ -43,7 +43,7 @@ public class BoardController {
     @PatchMapping("/{id}")
     public ResponseEntity<BoardResponseDto> update(@PathVariable Long id, @RequestBody UpdateBoardRequestDto requestDto) {
 
-        BoardResponseDto boardResponseDto = BoardService.update(id, requestDto.getTitle(), requestDto.getContent());
+        BoardResponseDto boardResponseDto = boardService.update(id, requestDto.getTitle(), requestDto.getContent());
 
         return new ResponseEntity<>(boardResponseDto, HttpStatus.OK);
     }

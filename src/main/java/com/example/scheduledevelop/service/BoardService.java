@@ -1,6 +1,7 @@
 package com.example.scheduledevelop.service;
 
 import com.example.scheduledevelop.dto.BoardResponseDto;
+import com.example.scheduledevelop.dto.CreateBoardRequestDto;
 import com.example.scheduledevelop.entity.Board;
 import com.example.scheduledevelop.entity.User;
 import com.example.scheduledevelop.repository.BoardRepository;
@@ -17,16 +18,16 @@ public class BoardService {
     private final UserRepository userRepository;
     private final BoardRepository boardRepository;
 
-    public BoardResponseDto save(String title, String content, String username) {
+    public BoardResponseDto save(CreateBoardRequestDto requestDto) {
 
-        User findUser = userRepository.findUserByUsernameOrElseThrow(username);
+        User findUser = userRepository.findByEmailOrElseTrow(requestDto.getEmail());
 
-        Board board = new Board(title, content);
+        Board board = new Board(requestDto.getTitle(), requestDto.getContent());
         board.setUser(findUser);
 
         Board savedBoard = boardRepository.save(board);
 
-        return new BoardResponseDto(savedBoard.getId(), savedBoard.getTitle(), savedBoard.getContent());
+        return new BoardResponseDto(savedBoard.getId(), savedBoard.getTitle(), savedBoard.getContent(), savedBoard.getUser().getUsername());
     }
 
     public List<BoardResponseDto> findAll() {
@@ -39,7 +40,7 @@ public class BoardService {
         Board findBoard = boardRepository.findByIdOrElseThrow(id);
         User writer = findBoard.getUser();
 
-        return new BoardResponseDto(findBoard.getId(), findBoard.getTitle(), findBoard.getContent());
+        return new BoardResponseDto(findBoard.getId(), findBoard.getTitle(), findBoard.getContent(), findBoard.getUser().getUsername());
     }
 
 
@@ -47,8 +48,9 @@ public class BoardService {
         Board findBoard = boardRepository.findByIdOrElseThrow(id);
 
         findBoard.update(title, content);
+        Board savedBoard = boardRepository.save(findBoard);
 
-        return new BoardResponseDto(findBoard.getId(), findBoard.getTitle(), findBoard.getContent());
+        return new BoardResponseDto(savedBoard.getId(), savedBoard.getTitle(), savedBoard.getContent(), savedBoard.getUser().getUsername());
     }
 
     public void delete(Long id) {

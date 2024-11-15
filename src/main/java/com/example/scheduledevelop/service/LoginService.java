@@ -16,10 +16,7 @@ public class LoginService {
 
     public void login(LoginRequestDto requestDto) {
 
-        User user = userRepository.findUserByUsernameOrElseThrow(requestDto.getEmail());
-        if(!user.getEmail().equals(requestDto.getEmail())) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "이메일을 확인해주세요");
-        }
+        User user = userRepository.findByEmailOrElseTrow(requestDto.getEmail());
 
         if(!user.getPassword().equals(requestDto.getPassword())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호를 확인해주세요");

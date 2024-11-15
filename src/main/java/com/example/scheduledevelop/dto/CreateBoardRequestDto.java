@@ -7,11 +7,11 @@ public class CreateBoardRequestDto {
 
     private final String title;
     private final String content;
-    private final String username;
+    private final String email;
 
-    public CreateBoardRequestDto(String title, String content, String username) {
+    public CreateBoardRequestDto(String title, String content, String email) {
         this.title = title;
         this.content = content;
-        this.username = username;
+        this.email = email;
     }
 }
