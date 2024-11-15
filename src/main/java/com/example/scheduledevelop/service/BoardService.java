@@ -1,6 +1,5 @@
 package com.example.scheduledevelop.service;
 
-import com.example.scheduledevelop.dto.BoardOneResponseDto;
 import com.example.scheduledevelop.dto.BoardResponseDto;
 import com.example.scheduledevelop.entity.Board;
 import com.example.scheduledevelop.entity.User;
@@ -35,12 +34,21 @@ public class BoardService {
         return boardRepository.findAll().stream().map(BoardResponseDto::toDto).toList();
     }
 
-    public BoardOneResponseDto findById(Long id) {
+    public BoardResponseDto findById(Long id) {
 
         Board findBoard = boardRepository.findByIdOrElseThrow(id);
         User writer = findBoard.getUser();
 
-        return new BoardOneResponseDto(findBoard.getTitle(), findBoard.getContent(), writer.getEmail());
+        return new BoardResponseDto(findBoard.getId(), findBoard.getTitle(), findBoard.getContent());
+    }
+
+
+    public BoardResponseDto update(Long id, String title, String content) {
+        Board findBoard = boardRepository.findByIdOrElseThrow(id);
+
+        findBoard.update(title, content);
+
+        return new BoardResponseDto(findBoard.getId(), findBoard.getTitle(), findBoard.getContent());
     }
 
     public void delete(Long id) {

@@ -10,10 +10,12 @@ public class BoardResponseDto {
     private final String title;
     private final String content;
 
+
     public BoardResponseDto(Long id, String title, String content) {
         this.id = id;
         this.title = title;
         this.content = content;
+
     }
 
     public static BoardResponseDto toDto(Board board) {

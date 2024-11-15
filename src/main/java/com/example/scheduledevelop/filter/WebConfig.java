@@ -1,6 +1,5 @@
-package com.example.scheduledevelop.config;
+package com.example.scheduledevelop.filter;
 
-import com.example.scheduledevelop.filter.LoginFilter;
 import jakarta.servlet.Filter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

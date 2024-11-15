@@ -1,8 +1,8 @@
 package com.example.scheduledevelop.controller;
 
-import com.example.scheduledevelop.dto.BoardOneResponseDto;
 import com.example.scheduledevelop.dto.BoardResponseDto;
 import com.example.scheduledevelop.dto.CreateBoardRequestDto;
+import com.example.scheduledevelop.dto.UpdateBoardRequestDto;
 import com.example.scheduledevelop.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,11 +34,19 @@ public class BoardController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BoardOneResponseDto> findById(@PathVariable Long id) {
+    public ResponseEntity<BoardResponseDto> findById(@PathVariable Long id) {
 
-        BoardOneResponseDto boardOneResponseDto = boardService.findById(id);
-        return new ResponseEntity<>(boardOneResponseDto, HttpStatus.OK);
+        BoardResponseDto boardResponseDto = boardService.findById(id);
+        return new ResponseEntity<>(boardResponseDto, HttpStatus.OK);
         }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<BoardResponseDto> update(@PathVariable Long id, @RequestBody UpdateBoardRequestDto requestDto) {
+
+        BoardResponseDto boardResponseDto = BoardService.update(id, requestDto.getTitle(), requestDto.getContent());
+
+        return new ResponseEntity<>(boardResponseDto, HttpStatus.OK);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
