@@ -11,7 +11,7 @@
 | 유저 등록 | POST   | /users          | 요청 body  | 등록 정보    | 201: 정상 등록        |
 | 유저 전체 조회 | GET    | /users      | 요청 param | 조회 정보 | 200: 정상 조회      |
 | 유저 선택 조회 | GET    | /users/{id}      | 요청 param | 조회 정보 | 200: 정상 조회  404: 찾을 수 없음    |
-| 유저 선택 삭제    | DELETE | /api/users/{id} | 요청 param     | -        | 200: 정상 삭제  404: 찾을 수 없음 |
+| 유저 선택 삭제    | DELETE | /users/{id} | 요청 param     | -        | 200: 정상 삭제  404: 찾을 수 없음 |
 
 - `POST` 유저 등록
 
@@ -81,7 +81,7 @@ URL : /users
 
 - `DELETE` 유저 선택 삭제
 
-URL : users/{id}
+URL : /users/{id}
 
 요청
 ```
